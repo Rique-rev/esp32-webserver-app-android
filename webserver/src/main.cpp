@@ -1,5 +1,11 @@
-#define WIFI_SSID ""
-#define WIFI_PSK ""
+#define WIFI_SSID "********"
+#define WIFI_PSK "********"
+
+#define LedVerde 25
+#define LedVermelho 26
+#define LedAzul 27
+#define LedLaranja 14
+#define LedAmarelo 12
 
 // We will use wifi
 #include <WiFi.h>
@@ -7,6 +13,7 @@
 #include <HTTPRequest.hpp>
 #include <HTTPResponse.hpp>
 #include <ArduinoJson.h>
+#include <map>
 
 using namespace httpsserver; // PORTA DEFAULT: 443
 
@@ -15,8 +22,15 @@ HTTPServer server = HTTPServer();
 void handleRoot(HTTPRequest *req, HTTPResponse *res);
 void handle404(HTTPRequest *req, HTTPResponse *res);
 
+void AcendeApagaLed(DynamicJsonDocument requestBody);
+
 void setup()
 {
+  pinMode(LedVerde, OUTPUT);
+  pinMode(LedVermelho, OUTPUT);
+  pinMode(LedAzul, OUTPUT);
+  pinMode(LedLaranja, OUTPUT);
+  pinMode(LedAmarelo, OUTPUT);
 
   Serial.begin(115200);
 
@@ -79,7 +93,7 @@ void handleRoot(HTTPRequest *req, HTTPResponse *res)
   {
     DynamicJsonDocument bodyJson(256);
 
-    res->setHeader("Content-Type", "text/json");
+    res->setHeader("Content-Type", "text/plain");
 
     // Pegando o tamanho (em bytes) do body
     const int bufferSize = req->getContentLength();
@@ -97,12 +111,10 @@ void handleRoot(HTTPRequest *req, HTTPResponse *res)
     for (char c : buffer)
       bodyStr += c;
 
-    
     deserializeJson(bodyJson, bodyStr);
-    String tudoBem = bodyJson["oi"];
-    Serial.println(tudoBem);
-   
-    res->print(tudoBem);
+    AcendeApagaLed(bodyJson);
+
+    res->print("LED ACESSO");
   }
 }
 
@@ -125,4 +137,80 @@ void handle404(HTTPRequest *req, HTTPResponse *res)
   res->println("<head><title>Not Found</title></head>");
   res->println("<body><h1>404 Not Found</h1><p>The requested resource was not found on this server.</p></body>");
   res->println("</html>");
+}
+
+void AcendeApagaLed(DynamicJsonDocument requestBody)
+{
+  std::map<String, int> codigoCor = {
+      {"verde", 1},
+      {"vermelho", 2},
+      {"azul", 3},
+      {"laranja", 4},
+      {"amarelo", 5}};
+
+  String corLed = requestBody["cor"];
+  String status = requestBody["status"];
+  int codigo = codigoCor[corLed];
+
+  Serial.println(corLed);
+  switch (codigo)
+  {
+  case 1:
+    if (status == "on")
+    {
+      digitalWrite(LedVerde, HIGH);
+    }
+    else if (status == "off")
+    {
+      digitalWrite(LedVerde, LOW);
+    }
+    break;
+
+  case 2:
+    if (status == "on")
+    {
+      digitalWrite(LedVermelho, HIGH);
+    }
+    else if (status == "off")
+    {
+      digitalWrite(LedVermelho, LOW);
+    }
+    break;
+
+  case 3:
+    if (status == "on")
+    {
+      digitalWrite(LedAzul, HIGH);
+    }
+    else if (status == "off")
+    {
+      digitalWrite(LedAzul, LOW);
+    }
+    break;
+
+  case 4:
+    if (status == "on")
+    {
+      digitalWrite(LedLaranja, HIGH);
+    }
+    else if (status == "off")
+    {
+      digitalWrite(LedLaranja, LOW);
+    }
+    break;
+
+  case 5:
+    if (status == "on")
+    {
+      digitalWrite(LedAmarelo, HIGH);
+    }
+    else if (status == "off")
+    {
+      digitalWrite(LedAmarelo, LOW);
+    }
+    break;
+
+  default:
+    break;
+  }
 }
