@@ -1,5 +1,5 @@
-#define WIFI_SSID "**********"
-#define WIFI_PSK "**********"
+#define WIFI_SSID ""
+#define WIFI_PSK ""
 
 // We will use wifi
 #include <WiFi.h>
@@ -79,7 +79,7 @@ void handleRoot(HTTPRequest *req, HTTPResponse *res)
   {
     DynamicJsonDocument bodyJson(256);
 
-    res->setHeader("Content-Type", "text/plain");
+    res->setHeader("Content-Type", "text/json");
 
     // Pegando o tamanho (em bytes) do body
     const int bufferSize = req->getContentLength();
@@ -97,9 +97,12 @@ void handleRoot(HTTPRequest *req, HTTPResponse *res)
     for (char c : buffer)
       bodyStr += c;
 
-    Serial.println(bodyStr);
-
-    res->print(bodyStr);
+    
+    deserializeJson(bodyJson, bodyStr);
+    String tudoBem = bodyJson["oi"];
+    Serial.println(tudoBem);
+   
+    res->print(tudoBem);
   }
 }
 
