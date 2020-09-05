@@ -1,93 +1,98 @@
-#include <Arduino.h>
+#define WIFI_SSID "*********"
+#define WIFI_PSK  "*********"
+
+
+// We will use wifi
 #include <WiFi.h>
+#include <HTTPServer.hpp>
+#include <HTTPRequest.hpp>
+#include <HTTPResponse.hpp>
+#include <ArduinoJson.h>
 
-#define PORT 80
-#define mtIDENTIFICAR 0
-#define mtGET 1
-#define mtPOST 2
-#define mtOUTRO 3
+using namespace httpsserver; // PORTA DEFAULT: 443
 
-WiFiServer server(PORT);
-WiFiClient client;
-char ssid[] = "*********";    // SSID
-char pass[] = "*********"; // Senha
+HTTPServer server = HTTPServer();
 
-void setup()
-{
+
+void handleRoot(HTTPRequest * req, HTTPResponse * res);
+void handle404(HTTPRequest * req, HTTPResponse * res);
+
+void setup() {
+
   Serial.begin(115200);
-  // WiFi.mode(WIFI_STA);
 
-  /*
-    Definir os pinos dos leds
 
-  */
-
-  WiFi.begin(ssid, pass);
-  Serial.print("Tentando conectar a rede: ");
-  Serial.println(ssid);
-  while (WiFi.status() != WL_CONNECTED)
-  {
+  Serial.println("Setting up WiFi");
+  WiFi.begin(WIFI_SSID, WIFI_PSK);
+  while (WiFi.status() != WL_CONNECTED) {
     Serial.print(".");
-    delay(10000);
+    delay(500);
   }
-
-  Serial.println("Conectado!");
-  Serial.print("ESP32 WebServer IP: ");
+  Serial.print("Connected. IP=");
   Serial.println(WiFi.localIP());
 
-  server.begin();
-}
+  ResourceNode * nodeRoot    = new ResourceNode("/", "GET", &handleRoot);
+  ResourceNode * node404     = new ResourceNode("", "GET", &handle404);
 
-void loop()
-{
-  client = server.available();
+  server.registerNode(nodeRoot);
+  server.setDefaultNode(node404);
 
-  if (client)
-  {
-    byte metodo = mtIDENTIFICAR;
-    String url;
-    unsigned long tamanhoConteudo = 0;
-
-    String linha = "";
-    while (client.connected())
-    {
-      if (client.available())
-      {
-        char c = client.read();
-        Serial.write(c);
-        
-        if (c == '\n')
-        {
-          if (linha.length() == 0)
-          {
-            if (metodo == mtGET)
-            {
-              if (url == "/")
-              {
-                Serial.println("HOME *****************************************");
-                client.println(F("HTTP/1.1 200 OK"));
-                client.println(F("Content-Type: text/html"));
-                client.println(F("Connection: close"));
-                client.println();
-              }
-              else
-              {
-                client.println(F("HTTP/1.1 404 Not Found"));
-                client.println(F("Content-Type: text/html"));
-                client.println(F("Connection: close"));
-                client.println();
-              }
-            }
-          }
-          else if (c != '\r')
-          {
-            linha += c;
-          }
-        }
-      }
-    }
-
-    client.stop();
+  Serial.println("Starting server...");
+  server.start();
+  if (server.isRunning()) {
+    Serial.println("Server ready.");
   }
 }
 
+void loop() {
+  // This call will let the server do its work
+  server.loop();
+
+  // Other code would go here...
+  delay(1);
+}
+
+void handleRoot(HTTPRequest * req, HTTPResponse * res) {
+  
+  res->setHeader("Content-Type", "text/html");
+
+  res->println("<!DOCTYPE html>");
+  res->println("<html>");
+  res->println("<head><title>Hello World!</title></head>");
+  res->println("<body>");
+  res->println("<h1>Hello World!</h1>");
+  res->print("<p>Your server is running for ");
+  // A bit of dynamic data: Show the uptime
+  res->print((int)(millis()/1000), DEC);
+  res->println(" seconds.</p>");
+  res->println("</body>");
+  res->println("</html>");
+}
+
+// void handleFavicon(HTTPRequest * req, HTTPResponse * res) {
+//   // Set Content-Type
+//   res->setHeader("Content-Type", "image/vnd.microsoft.icon");
+//   // Write data from header file
+//   res->write(FAVICON_DATA, FAVICON_LENGTH);
+// }
+
+void handle404(HTTPRequest * req, HTTPResponse * res) {
+  // Discard request body, if we received any
+  // We do this, as this is the default node and may also server POST/PUT requests
+  req->discardRequestBody();
+
+  // Set the response status
+  res->setStatusCode(404);
+  res->setStatusText("Not Found");
+
+  // Set content type of the response
+  res->setHeader("Content-Type", "text/html");
+
+  // Write a tiny HTTP page
+  res->println("<!DOCTYPE html>");
+  res->println("<html>");
+  res->println("<head><title>Not Found</title></head>");
+  res->println("<body><h1>404 Not Found</h1><p>The requested resource was not found on this server.</p></body>");
+  res->println("</html>");
+
+}
