@@ -1,11 +1,11 @@
-#define WIFI_SSID "********"
-#define WIFI_PSK "********"
+#define WIFI_SSID "***********"
+#define WIFI_PSK "************"
 
-#define LedVerde 25
-#define LedVermelho 26
-#define LedAzul 27
-#define LedLaranja 14
-#define LedAmarelo 12
+#define LedVerde 32
+#define LedVermelho 33
+#define LedAzul 25
+#define LedLaranja 26
+#define LedAmarelo 27
 
 // We will use wifi
 #include <WiFi.h>
@@ -73,22 +73,30 @@ void loop()
 void handleRoot(HTTPRequest *req, HTTPResponse *res)
 {
 
+  // Devolve o estado (acesso/apagado) de todos os leds
   if (req->getMethod() == "GET")
   {
-    res->setHeader("Content-Type", "text/html");
+    res->setHeader("Content-Type", "text/plain");
+    DynamicJsonDocument statusLeds(256);
 
-    res->println("<!DOCTYPE html>");
-    res->println("<html>");
-    res->println("<head><title>Hello World!</title></head>");
-    res->println("<body>");
-    res->println("<h1>Hello World!</h1>");
-    res->print("<p>Your server is running for ");
-    // A bit of dynamic data: Show the uptime
-    res->print((int)(millis() / 1000), DEC);
-    res->println(" seconds.</p>");
-    res->println("</body>");
-    res->println("</html>");
+    bool statusLedVerde = digitalRead(LedVerde);
+    bool statusLedVermelho = digitalRead(LedVermelho);
+    bool statusLedAzul = digitalRead(LedAzul);
+    bool statusLedLaranja = digitalRead(LedLaranja);
+    bool statusLedAmarelo = digitalRead(LedAmarelo);
+
+    statusLeds["verde"] = statusLedVerde;
+    statusLeds["vermelho"] = statusLedVermelho;
+    statusLeds["azul"] = statusLedAzul;
+    statusLeds["laranja"] = statusLedLaranja;
+    statusLeds["amarelo"] = statusLedAmarelo;
+
+    String response;
+    serializeJson(statusLeds, response);
+
+    res->println(response);
   }
+  // Altera o estado (acesso/apagado) de um led
   else if (req->getMethod() == "POST")
   {
     DynamicJsonDocument bodyJson(256);
@@ -114,7 +122,7 @@ void handleRoot(HTTPRequest *req, HTTPResponse *res)
     deserializeJson(bodyJson, bodyStr);
     AcendeApagaLed(bodyJson);
 
-    res->print("LED ACESSO");
+    res->print("OK");
   }
 }
 
@@ -141,6 +149,7 @@ void handle404(HTTPRequest *req, HTTPResponse *res)
 
 void AcendeApagaLed(DynamicJsonDocument requestBody)
 {
+
   std::map<String, int> codigoCor = {
       {"verde", 1},
       {"vermelho", 2},
@@ -152,7 +161,7 @@ void AcendeApagaLed(DynamicJsonDocument requestBody)
   String status = requestBody["status"];
   int codigo = codigoCor[corLed];
 
-  Serial.println(corLed);
+  // Serial.println(corLed);
   switch (codigo)
   {
   case 1:
