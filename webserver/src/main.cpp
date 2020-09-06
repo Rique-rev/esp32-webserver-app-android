@@ -1,5 +1,5 @@
-#define WIFI_SSID "***********"
-#define WIFI_PSK "************"
+#define WIFI_SSID ""
+#define WIFI_PSK ""
 
 #define LedVerde 32
 #define LedVermelho 33
@@ -20,6 +20,7 @@ using namespace httpsserver; // PORTA DEFAULT: 443
 HTTPServer server = HTTPServer();
 
 void handleRoot(HTTPRequest *req, HTTPResponse *res);
+void handlePisca(HTTPRequest *req, HTTPResponse *res);
 void handle404(HTTPRequest *req, HTTPResponse *res);
 
 void AcendeApagaLed(DynamicJsonDocument requestBody);
@@ -46,6 +47,9 @@ void setup()
 
   ResourceNode *nodeRootGET = new ResourceNode("/", "GET", &handleRoot);
   server.registerNode(nodeRootGET);
+
+  ResourceNode *nodePisca = new ResourceNode("/pisca", "GET", &handlePisca);
+  server.registerNode(nodePisca);
 
   ResourceNode *nodeRootPOST = new ResourceNode("/", "POST", &handleRoot);
   server.registerNode(nodeRootPOST);
@@ -124,6 +128,35 @@ void handleRoot(HTTPRequest *req, HTTPResponse *res)
 
     res->print("OK");
   }
+}
+
+void handlePisca(HTTPRequest *req, HTTPResponse *res)
+{
+  res->setHeader("Content-Type", "text/plain");
+
+  unsigned long tempoReferencia = 0;
+  int piscaDelay = 1000; // 1000ms = 1s
+  int count = 0;
+  bool statusLed = HIGH;
+
+  while (count < 10)
+  {
+    if ((millis() - tempoReferencia) >= piscaDelay)
+    {
+
+      digitalWrite(LedVerde, statusLed);
+      digitalWrite(LedVermelho, statusLed);
+      digitalWrite(LedAzul, statusLed);
+      digitalWrite(LedLaranja, statusLed);
+      digitalWrite(LedAmarelo, statusLed);
+
+      tempoReferencia = millis();
+      statusLed = !statusLed;
+      count++;
+    }
+  }
+
+  res->print("OK");
 }
 
 void handle404(HTTPRequest *req, HTTPResponse *res)
