@@ -1,3 +1,11 @@
+#include <WiFi.h>
+#include <HTTPServer.hpp>
+#include <HTTPRequest.hpp>
+#include <HTTPResponse.hpp>
+#include <ArduinoJson.h>
+#include <map>
+#include <ESPmDNS.h>
+
 #define WIFI_SSID ""
 #define WIFI_PSK ""
 
@@ -6,14 +14,6 @@
 #define LedAzul 25
 #define LedLaranja 26
 #define LedAmarelo 27
-
-// We will use wifi
-#include <WiFi.h>
-#include <HTTPServer.hpp>
-#include <HTTPRequest.hpp>
-#include <HTTPResponse.hpp>
-#include <ArduinoJson.h>
-#include <map>
 
 using namespace httpsserver; // PORTA DEFAULT: 443
 
@@ -42,8 +42,21 @@ void setup()
     Serial.print(".");
     delay(500);
   }
+
   Serial.print("Connected. IP=");
   Serial.println(WiFi.localIP());
+
+  // Definindo o domínio esp32.local
+  // Não funciona com o Postman/Insomnia nem com Chrome/Chromium (Não sei o por que)
+  if (!MDNS.begin("esp32cde"))
+  {
+    Serial.println("Error setting up MDNS responder!");
+    return;
+  }
+  else
+  {
+    Serial.println("mDNS started!");
+  }
 
   ResourceNode *nodeRootGET = new ResourceNode("/", "GET", &handleRoot);
   server.registerNode(nodeRootGET);
