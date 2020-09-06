@@ -135,11 +135,11 @@ void handlePisca(HTTPRequest *req, HTTPResponse *res)
   res->setHeader("Content-Type", "text/plain");
 
   unsigned long tempoReferencia = 0;
-  int piscaDelay = 1000; // 1000ms = 1s
+  int piscaDelay = 500; // 1000ms = 1s
   int count = 0;
   bool statusLed = HIGH;
 
-  while (count < 10)
+  while (count < 20)
   {
     if ((millis() - tempoReferencia) >= piscaDelay)
     {
