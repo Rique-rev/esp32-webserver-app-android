@@ -93,10 +93,28 @@ public class MainActivity extends AppCompatActivity {
                         if(response.isSuccessful()) {
                             final String myResponse = response.body().string();
 
+                            try {
+                                JSONObject jsonResponse = new JSONObject(myResponse);
+                                statusLedVerde = jsonResponse.getBoolean("verde") ? "ON" : "OFF";
+                                statusLedVermelho = jsonResponse.getBoolean("vermelho") ? "ON" : "OFF";
+                                statusLedAzul = jsonResponse.getBoolean("azul") ? "ON" : "OFF";
+                                statusLedLaranja = jsonResponse.getBoolean("laranja") ? "ON" : "OFF";
+                                statusLedAmarelo = jsonResponse.getBoolean("amarelo") ? "ON" : "OFF";
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
                             MainActivity.this.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    txtResponse.setText(myResponse);
+                                    txtResponse.setText("OK");
+                                    txtStatusLedVerde.setText(statusLedVerde);
+                                    txtStatusLedVermelho.setText(statusLedVermelho);
+                                    txtStatusLedAzul.setText(statusLedAzul);
+                                    txtStatusLedLaranja.setText(statusLedLaranja);
+                                    txtStatusLedAmarelo.setText(statusLedAmarelo);
                                 }
                             });
                         }
@@ -141,10 +159,29 @@ public class MainActivity extends AppCompatActivity {
                         if(response.isSuccessful()) {
                             final String myResponse = response.body().string();
 
+                            try {
+                                JSONObject jsonResponse = new JSONObject(myResponse);
+                                statusLedVerde = jsonResponse.getBoolean("verde") ? "ON" : "OFF";
+                                statusLedVermelho = jsonResponse.getBoolean("vermelho") ? "ON" : "OFF";
+                                statusLedAzul = jsonResponse.getBoolean("azul") ? "ON" : "OFF";
+                                statusLedLaranja = jsonResponse.getBoolean("laranja") ? "ON" : "OFF";
+                                statusLedAmarelo = jsonResponse.getBoolean("amarelo") ? "ON" : "OFF";
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+
                             MainActivity.this.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    txtResponse.setText(myResponse);
+                                    txtResponse.setText("OK");
+                                    txtStatusLedVerde.setText(statusLedVerde);
+                                    txtStatusLedVermelho.setText(statusLedVermelho);
+                                    txtStatusLedAzul.setText(statusLedAzul);
+                                    txtStatusLedLaranja.setText(statusLedLaranja);
+                                    txtStatusLedAmarelo.setText(statusLedAmarelo);
                                 }
                             });
                         }
@@ -189,10 +226,29 @@ public class MainActivity extends AppCompatActivity {
                         if(response.isSuccessful()) {
                             final String myResponse = response.body().string();
 
+                            try {
+                                JSONObject jsonResponse = new JSONObject(myResponse);
+                                statusLedVerde = jsonResponse.getBoolean("verde") ? "ON" : "OFF";
+                                statusLedVermelho = jsonResponse.getBoolean("vermelho") ? "ON" : "OFF";
+                                statusLedAzul = jsonResponse.getBoolean("azul") ? "ON" : "OFF";
+                                statusLedLaranja = jsonResponse.getBoolean("laranja") ? "ON" : "OFF";
+                                statusLedAmarelo = jsonResponse.getBoolean("amarelo") ? "ON" : "OFF";
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+
                             MainActivity.this.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    txtResponse.setText(myResponse);
+                                    txtResponse.setText("OK");
+                                    txtStatusLedVerde.setText(statusLedVerde);
+                                    txtStatusLedVermelho.setText(statusLedVermelho);
+                                    txtStatusLedAzul.setText(statusLedAzul);
+                                    txtStatusLedLaranja.setText(statusLedLaranja);
+                                    txtStatusLedAmarelo.setText(statusLedAmarelo);
                                 }
                             });
                         }
@@ -237,10 +293,28 @@ public class MainActivity extends AppCompatActivity {
                         if(response.isSuccessful()) {
                             final String myResponse = response.body().string();
 
+                            try {
+                                JSONObject jsonResponse = new JSONObject(myResponse);
+                                statusLedVerde = jsonResponse.getBoolean("verde") ? "ON" : "OFF";
+                                statusLedVermelho = jsonResponse.getBoolean("vermelho") ? "ON" : "OFF";
+                                statusLedAzul = jsonResponse.getBoolean("azul") ? "ON" : "OFF";
+                                statusLedLaranja = jsonResponse.getBoolean("laranja") ? "ON" : "OFF";
+                                statusLedAmarelo = jsonResponse.getBoolean("amarelo") ? "ON" : "OFF";
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
                             MainActivity.this.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    txtResponse.setText(myResponse);
+                                    txtResponse.setText("OK");
+                                    txtStatusLedVerde.setText(statusLedVerde);
+                                    txtStatusLedVermelho.setText(statusLedVermelho);
+                                    txtStatusLedAzul.setText(statusLedAzul);
+                                    txtStatusLedLaranja.setText(statusLedLaranja);
+                                    txtStatusLedAmarelo.setText(statusLedAmarelo);
                                 }
                             });
                         }
@@ -285,10 +359,28 @@ public class MainActivity extends AppCompatActivity {
                         if(response.isSuccessful()) {
                             final String myResponse = response.body().string();
 
+                            try {
+                                JSONObject jsonResponse = new JSONObject(myResponse);
+                                statusLedVerde = jsonResponse.getBoolean("verde") ? "ON" : "OFF";
+                                statusLedVermelho = jsonResponse.getBoolean("vermelho") ? "ON" : "OFF";
+                                statusLedAzul = jsonResponse.getBoolean("azul") ? "ON" : "OFF";
+                                statusLedLaranja = jsonResponse.getBoolean("laranja") ? "ON" : "OFF";
+                                statusLedAmarelo = jsonResponse.getBoolean("amarelo") ? "ON" : "OFF";
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
                             MainActivity.this.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    txtResponse.setText(myResponse);
+                                    txtResponse.setText("OK");
+                                    txtStatusLedVerde.setText(statusLedVerde);
+                                    txtStatusLedVermelho.setText(statusLedVermelho);
+                                    txtStatusLedAzul.setText(statusLedAzul);
+                                    txtStatusLedLaranja.setText(statusLedLaranja);
+                                    txtStatusLedAmarelo.setText(statusLedAmarelo);
                                 }
                             });
                         }
@@ -324,10 +416,28 @@ public class MainActivity extends AppCompatActivity {
                         if(response.isSuccessful()) {
                             final String myResponse = response.body().string();
 
+                            try {
+                                JSONObject jsonResponse = new JSONObject(myResponse);
+                                statusLedVerde = jsonResponse.getBoolean("verde") ? "ON" : "OFF";
+                                statusLedVermelho = jsonResponse.getBoolean("vermelho") ? "ON" : "OFF";
+                                statusLedAzul = jsonResponse.getBoolean("azul") ? "ON" : "OFF";
+                                statusLedLaranja = jsonResponse.getBoolean("laranja") ? "ON" : "OFF";
+                                statusLedAmarelo = jsonResponse.getBoolean("amarelo") ? "ON" : "OFF";
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
                             MainActivity.this.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    txtResponse.setText(myResponse);
+                                    txtResponse.setText("OK");
+                                    txtStatusLedVerde.setText(statusLedVerde);
+                                    txtStatusLedVermelho.setText(statusLedVermelho);
+                                    txtStatusLedAzul.setText(statusLedAzul);
+                                    txtStatusLedLaranja.setText(statusLedLaranja);
+                                    txtStatusLedAmarelo.setText(statusLedAmarelo);
                                 }
                             });
                         }
@@ -361,10 +471,28 @@ public class MainActivity extends AppCompatActivity {
                         if(response.isSuccessful()) {
                             final String myResponse = response.body().string();
 
+                            try {
+                                JSONObject jsonResponse = new JSONObject(myResponse);
+                                statusLedVerde = jsonResponse.getBoolean("verde") ? "ON" : "OFF";
+                                statusLedVermelho = jsonResponse.getBoolean("vermelho") ? "ON" : "OFF";
+                                statusLedAzul = jsonResponse.getBoolean("azul") ? "ON" : "OFF";
+                                statusLedLaranja = jsonResponse.getBoolean("laranja") ? "ON" : "OFF";
+                                statusLedAmarelo = jsonResponse.getBoolean("amarelo") ? "ON" : "OFF";
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
                             MainActivity.this.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    txtResponse.setText(myResponse);
+                                    txtResponse.setText("OK");
+                                    txtStatusLedVerde.setText(statusLedVerde);
+                                    txtStatusLedVermelho.setText(statusLedVermelho);
+                                    txtStatusLedAzul.setText(statusLedAzul);
+                                    txtStatusLedLaranja.setText(statusLedLaranja);
+                                    txtStatusLedAmarelo.setText(statusLedAmarelo);
                                 }
                             });
                         }
@@ -399,10 +527,28 @@ public class MainActivity extends AppCompatActivity {
                         if(response.isSuccessful()) {
                             final String myResponse = response.body().string();
 
+                            try {
+                                JSONObject jsonResponse = new JSONObject(myResponse);
+                                statusLedVerde = jsonResponse.getBoolean("verde") ? "ON" : "OFF";
+                                statusLedVermelho = jsonResponse.getBoolean("vermelho") ? "ON" : "OFF";
+                                statusLedAzul = jsonResponse.getBoolean("azul") ? "ON" : "OFF";
+                                statusLedLaranja = jsonResponse.getBoolean("laranja") ? "ON" : "OFF";
+                                statusLedAmarelo = jsonResponse.getBoolean("amarelo") ? "ON" : "OFF";
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
                             MainActivity.this.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    txtResponse.setText(myResponse);
+                                    txtResponse.setText("OK");
+                                    txtStatusLedVerde.setText(statusLedVerde);
+                                    txtStatusLedVermelho.setText(statusLedVermelho);
+                                    txtStatusLedAzul.setText(statusLedAzul);
+                                    txtStatusLedLaranja.setText(statusLedLaranja);
+                                    txtStatusLedAmarelo.setText(statusLedAmarelo);
                                 }
                             });
                         }
@@ -454,7 +600,7 @@ public class MainActivity extends AppCompatActivity {
                                     txtStatusLedVermelho.setText(statusLedVermelho);
                                     txtStatusLedAzul.setText(statusLedAzul);
                                     txtStatusLedLaranja.setText(statusLedLaranja);
-                                    txtStatusLedAmarelo.setText(statusLedAmarelo);;
+                                    txtStatusLedAmarelo.setText(statusLedAmarelo);
 
                                 }
                             });
