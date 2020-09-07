@@ -2,6 +2,7 @@ package com.example.appledcontroller;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,11 +38,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btLedVerde = findViewById(R.id.btLedVerde);
-        Button btLedVermelho = findViewById(R.id.btLedVermelho);
-        Button btLedAzul = findViewById(R.id.btLedAzul);
-        Button btLedLaranja = findViewById(R.id.btLedLaranja);
-        Button btLedAmarelo = findViewById(R.id.btLedAmarelo);
+        final Button btLedVerde = findViewById(R.id.btLedVerde);
+        final Button btLedVermelho = findViewById(R.id.btLedVermelho);
+        final Button btLedAzul = findViewById(R.id.btLedAzul);
+        final Button btLedLaranja = findViewById(R.id.btLedLaranja);
+        final Button btLedAmarelo = findViewById(R.id.btLedAmarelo);
         Button btAcendeTodos = findViewById(R.id.btAcendeTodos);
         Button btApagaTodos = findViewById(R.id.btApagaTodos);
         Button btPiscarLeds = findViewById(R.id.btPiscarLeds);
@@ -93,18 +94,7 @@ public class MainActivity extends AppCompatActivity {
                         if(response.isSuccessful()) {
                             final String myResponse = response.body().string();
 
-                            try {
-                                JSONObject jsonResponse = new JSONObject(myResponse);
-                                statusLedVerde = jsonResponse.getBoolean("verde") ? "ON" : "OFF";
-                                statusLedVermelho = jsonResponse.getBoolean("vermelho") ? "ON" : "OFF";
-                                statusLedAzul = jsonResponse.getBoolean("azul") ? "ON" : "OFF";
-                                statusLedLaranja = jsonResponse.getBoolean("laranja") ? "ON" : "OFF";
-                                statusLedAmarelo = jsonResponse.getBoolean("amarelo") ? "ON" : "OFF";
-
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+                            updateButtonsState(myResponse, btLedVerde, btLedVermelho, btLedAzul, btLedLaranja, btLedAmarelo);
 
                             MainActivity.this.runOnUiThread(new Runnable() {
                                 @Override
@@ -159,19 +149,7 @@ public class MainActivity extends AppCompatActivity {
                         if(response.isSuccessful()) {
                             final String myResponse = response.body().string();
 
-                            try {
-                                JSONObject jsonResponse = new JSONObject(myResponse);
-                                statusLedVerde = jsonResponse.getBoolean("verde") ? "ON" : "OFF";
-                                statusLedVermelho = jsonResponse.getBoolean("vermelho") ? "ON" : "OFF";
-                                statusLedAzul = jsonResponse.getBoolean("azul") ? "ON" : "OFF";
-                                statusLedLaranja = jsonResponse.getBoolean("laranja") ? "ON" : "OFF";
-                                statusLedAmarelo = jsonResponse.getBoolean("amarelo") ? "ON" : "OFF";
-
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
+                            updateButtonsState(myResponse, btLedVerde, btLedVermelho, btLedAzul, btLedLaranja, btLedAmarelo);
 
                             MainActivity.this.runOnUiThread(new Runnable() {
                                 @Override
@@ -226,18 +204,7 @@ public class MainActivity extends AppCompatActivity {
                         if(response.isSuccessful()) {
                             final String myResponse = response.body().string();
 
-                            try {
-                                JSONObject jsonResponse = new JSONObject(myResponse);
-                                statusLedVerde = jsonResponse.getBoolean("verde") ? "ON" : "OFF";
-                                statusLedVermelho = jsonResponse.getBoolean("vermelho") ? "ON" : "OFF";
-                                statusLedAzul = jsonResponse.getBoolean("azul") ? "ON" : "OFF";
-                                statusLedLaranja = jsonResponse.getBoolean("laranja") ? "ON" : "OFF";
-                                statusLedAmarelo = jsonResponse.getBoolean("amarelo") ? "ON" : "OFF";
-
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+                            updateButtonsState(myResponse, btLedVerde, btLedVermelho, btLedAzul, btLedLaranja, btLedAmarelo);
 
 
                             MainActivity.this.runOnUiThread(new Runnable() {
@@ -293,18 +260,7 @@ public class MainActivity extends AppCompatActivity {
                         if(response.isSuccessful()) {
                             final String myResponse = response.body().string();
 
-                            try {
-                                JSONObject jsonResponse = new JSONObject(myResponse);
-                                statusLedVerde = jsonResponse.getBoolean("verde") ? "ON" : "OFF";
-                                statusLedVermelho = jsonResponse.getBoolean("vermelho") ? "ON" : "OFF";
-                                statusLedAzul = jsonResponse.getBoolean("azul") ? "ON" : "OFF";
-                                statusLedLaranja = jsonResponse.getBoolean("laranja") ? "ON" : "OFF";
-                                statusLedAmarelo = jsonResponse.getBoolean("amarelo") ? "ON" : "OFF";
-
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+                            updateButtonsState(myResponse, btLedVerde, btLedVermelho, btLedAzul, btLedLaranja, btLedAmarelo);
 
                             MainActivity.this.runOnUiThread(new Runnable() {
                                 @Override
@@ -359,18 +315,7 @@ public class MainActivity extends AppCompatActivity {
                         if(response.isSuccessful()) {
                             final String myResponse = response.body().string();
 
-                            try {
-                                JSONObject jsonResponse = new JSONObject(myResponse);
-                                statusLedVerde = jsonResponse.getBoolean("verde") ? "ON" : "OFF";
-                                statusLedVermelho = jsonResponse.getBoolean("vermelho") ? "ON" : "OFF";
-                                statusLedAzul = jsonResponse.getBoolean("azul") ? "ON" : "OFF";
-                                statusLedLaranja = jsonResponse.getBoolean("laranja") ? "ON" : "OFF";
-                                statusLedAmarelo = jsonResponse.getBoolean("amarelo") ? "ON" : "OFF";
-
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+                            updateButtonsState(myResponse, btLedVerde, btLedVermelho, btLedAzul, btLedLaranja, btLedAmarelo);
 
                             MainActivity.this.runOnUiThread(new Runnable() {
                                 @Override
@@ -416,18 +361,7 @@ public class MainActivity extends AppCompatActivity {
                         if(response.isSuccessful()) {
                             final String myResponse = response.body().string();
 
-                            try {
-                                JSONObject jsonResponse = new JSONObject(myResponse);
-                                statusLedVerde = jsonResponse.getBoolean("verde") ? "ON" : "OFF";
-                                statusLedVermelho = jsonResponse.getBoolean("vermelho") ? "ON" : "OFF";
-                                statusLedAzul = jsonResponse.getBoolean("azul") ? "ON" : "OFF";
-                                statusLedLaranja = jsonResponse.getBoolean("laranja") ? "ON" : "OFF";
-                                statusLedAmarelo = jsonResponse.getBoolean("amarelo") ? "ON" : "OFF";
-
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+                            updateButtonsState(myResponse, btLedVerde, btLedVermelho, btLedAzul, btLedLaranja, btLedAmarelo);
 
                             MainActivity.this.runOnUiThread(new Runnable() {
                                 @Override
@@ -471,18 +405,7 @@ public class MainActivity extends AppCompatActivity {
                         if(response.isSuccessful()) {
                             final String myResponse = response.body().string();
 
-                            try {
-                                JSONObject jsonResponse = new JSONObject(myResponse);
-                                statusLedVerde = jsonResponse.getBoolean("verde") ? "ON" : "OFF";
-                                statusLedVermelho = jsonResponse.getBoolean("vermelho") ? "ON" : "OFF";
-                                statusLedAzul = jsonResponse.getBoolean("azul") ? "ON" : "OFF";
-                                statusLedLaranja = jsonResponse.getBoolean("laranja") ? "ON" : "OFF";
-                                statusLedAmarelo = jsonResponse.getBoolean("amarelo") ? "ON" : "OFF";
-
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+                            updateButtonsState(myResponse, btLedVerde, btLedVermelho, btLedAzul, btLedLaranja, btLedAmarelo);
 
                             MainActivity.this.runOnUiThread(new Runnable() {
                                 @Override
@@ -527,18 +450,7 @@ public class MainActivity extends AppCompatActivity {
                         if(response.isSuccessful()) {
                             final String myResponse = response.body().string();
 
-                            try {
-                                JSONObject jsonResponse = new JSONObject(myResponse);
-                                statusLedVerde = jsonResponse.getBoolean("verde") ? "ON" : "OFF";
-                                statusLedVermelho = jsonResponse.getBoolean("vermelho") ? "ON" : "OFF";
-                                statusLedAzul = jsonResponse.getBoolean("azul") ? "ON" : "OFF";
-                                statusLedLaranja = jsonResponse.getBoolean("laranja") ? "ON" : "OFF";
-                                statusLedAmarelo = jsonResponse.getBoolean("amarelo") ? "ON" : "OFF";
-
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+                            updateButtonsState(myResponse, btLedVerde, btLedVermelho, btLedAzul, btLedLaranja, btLedAmarelo);
 
                             MainActivity.this.runOnUiThread(new Runnable() {
                                 @Override
@@ -580,18 +492,9 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                         if(response.isSuccessful()) {
                             final String myResponse = response.body().string();
-                            try {
-                                JSONObject jsonResponse = new JSONObject(myResponse);
-                                statusLedVerde = jsonResponse.getBoolean("verde") ? "ON" : "OFF";
-                                statusLedVermelho = jsonResponse.getBoolean("vermelho") ? "ON" : "OFF";
-                                statusLedAzul = jsonResponse.getBoolean("azul") ? "ON" : "OFF";
-                                statusLedLaranja = jsonResponse.getBoolean("laranja") ? "ON" : "OFF";
-                                statusLedAmarelo = jsonResponse.getBoolean("amarelo") ? "ON" : "OFF";
 
+                            updateButtonsState(myResponse, btLedVerde, btLedVermelho, btLedAzul, btLedLaranja, btLedAmarelo);
 
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
                             MainActivity.this.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -613,6 +516,59 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
+
+    }
+
+    private void updateButtonsState(String myResponse, View btLedVerde, View btLedVermelho, View btLedAzul, View btLedLaranja, View btLedAmarelo){
+        try {
+            JSONObject jsonResponse = new JSONObject(myResponse);
+            if(jsonResponse.getBoolean("verde")){
+                statusLedVerde = "ON";
+                btLedVerde.setBackgroundColor(Color.parseColor("#9FF781"));
+            }else{
+                statusLedVerde = "OFF";
+                btLedVerde.setBackgroundColor(Color.parseColor("#D8D8D8"));
+            }
+
+
+            if(jsonResponse.getBoolean("vermelho")){
+                statusLedVermelho = "ON";
+                btLedVermelho.setBackgroundColor(Color.parseColor("#FE2E2E"));
+            }else{
+                statusLedVermelho = "OFF";
+                btLedVermelho.setBackgroundColor(Color.parseColor("#D8D8D8"));
+            }
+
+            if(jsonResponse.getBoolean("azul")){
+                statusLedAzul = "ON";
+                btLedAzul.setBackgroundColor(Color.parseColor("#2E64FE"));
+            }else{
+                statusLedAzul = "OFF";
+                btLedAzul.setBackgroundColor(Color.parseColor("#D8D8D8"));
+            }
+
+            if(jsonResponse.getBoolean("laranja")){
+                statusLedLaranja = "ON";
+                btLedLaranja.setBackgroundColor(Color.parseColor("#FE9A2E"));
+            }else{
+                statusLedLaranja = "OFF";
+                btLedLaranja.setBackgroundColor(Color.parseColor("#D8D8D8"));
+            }
+
+            if(jsonResponse.getBoolean("amarelo")){
+                statusLedAmarelo = "ON";
+                btLedAmarelo.setBackgroundColor(Color.parseColor("#F4FA58"));
+            }else{
+                statusLedAmarelo = "OFF";
+                btLedAmarelo.setBackgroundColor(Color.parseColor("#D8D8D8"));
+            }
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
 
