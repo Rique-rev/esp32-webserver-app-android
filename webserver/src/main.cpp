@@ -238,64 +238,68 @@ void AcendeApagaLed(DynamicJsonDocument requestBody)
       {"amarelo", 5}};
 
   String corLed = requestBody["cor"];
-  String status = requestBody["status"];
   int codigo = codigoCor[corLed];
 
   // Serial.println(corLed);
+  // Se estiver acesso o led será apagado | Se estiver apagado, o led será
   switch (codigo)
   {
   case 1:
-    if (status == "on")
-    {
-      digitalWrite(LedVerde, HIGH);
-    }
-    else if (status == "off")
+
+    if (digitalRead(LedVerde))
     {
       digitalWrite(LedVerde, LOW);
+    }
+    else
+    {
+      digitalWrite(LedVerde, HIGH);
     }
     break;
 
   case 2:
-    if (status == "on")
-    {
-      digitalWrite(LedVermelho, HIGH);
-    }
-    else if (status == "off")
+
+    if (digitalRead(LedVermelho))
     {
       digitalWrite(LedVermelho, LOW);
+    }
+    else
+    {
+      digitalWrite(LedVermelho, HIGH);
     }
     break;
 
   case 3:
-    if (status == "on")
-    {
-      digitalWrite(LedAzul, HIGH);
-    }
-    else if (status == "off")
+    if (digitalRead(LedAzul))
     {
       digitalWrite(LedAzul, LOW);
+    }
+    else
+    {
+      digitalWrite(LedAzul, HIGH);
     }
     break;
 
   case 4:
-    if (status == "on")
-    {
-      digitalWrite(LedLaranja, HIGH);
-    }
-    else if (status == "off")
+
+    if (digitalRead(LedLaranja))
     {
       digitalWrite(LedLaranja, LOW);
+    }
+    else
+    {
+      digitalWrite(LedLaranja, HIGH);
     }
     break;
 
   case 5:
-    if (status == "on")
-    {
-      digitalWrite(LedAmarelo, HIGH);
-    }
-    else if (status == "off")
+
+    if (digitalRead(LedAmarelo))
     {
       digitalWrite(LedAmarelo, LOW);
+    }
+    else
+    {
+      digitalWrite(LedAmarelo, HIGH);
     }
     break;
 
