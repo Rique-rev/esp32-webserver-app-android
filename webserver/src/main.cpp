@@ -26,6 +26,7 @@ void handleApagaTudo(HTTPRequest *req, HTTPResponse *res);
 void handle404(HTTPRequest *req, HTTPResponse *res);
 
 void AcendeApagaLed(DynamicJsonDocument requestBody);
+String getStatusLeds();
 
 void setup()
 {
@@ -102,22 +103,8 @@ void handleRoot(HTTPRequest *req, HTTPResponse *res)
   if (req->getMethod() == "GET")
   {
     res->setHeader("Content-Type", "text/plain");
-    DynamicJsonDocument statusLeds(256);
 
-    bool statusLedVerde = digitalRead(LedVerde);
-    bool statusLedVermelho = digitalRead(LedVermelho);
-    bool statusLedAzul = digitalRead(LedAzul);
-    bool statusLedLaranja = digitalRead(LedLaranja);
-    bool statusLedAmarelo = digitalRead(LedAmarelo);
-
-    statusLeds["verde"] = statusLedVerde;
-    statusLeds["vermelho"] = statusLedVermelho;
-    statusLeds["azul"] = statusLedAzul;
-    statusLeds["laranja"] = statusLedLaranja;
-    statusLeds["amarelo"] = statusLedAmarelo;
-
-    String response;
-    serializeJson(statusLeds, response);
+    String response = getStatusLeds();
 
     res->println(response);
   }
@@ -147,7 +134,9 @@ void handleRoot(HTTPRequest *req, HTTPResponse *res)
     deserializeJson(bodyJson, bodyStr);
     AcendeApagaLed(bodyJson);
 
-    res->print("OK");
+    String response = getStatusLeds();
+
+    res->println(response);
   }
 }
 
@@ -177,7 +166,9 @@ void handlePisca(HTTPRequest *req, HTTPResponse *res)
     }
   }
 
-  res->print("OK");
+  String response = getStatusLeds();
+
+  res->println(response);
 }
 
 void handleAcendeTudo(HTTPRequest *req, HTTPResponse *res)
@@ -190,7 +181,9 @@ void handleAcendeTudo(HTTPRequest *req, HTTPResponse *res)
   digitalWrite(LedLaranja, HIGH);
   digitalWrite(LedAmarelo, HIGH);
 
-  res->print("OK");
+  String response = getStatusLeds();
+
+  res->println(response);
 }
 
 void handleApagaTudo(HTTPRequest *req, HTTPResponse *res)
@@ -203,7 +196,9 @@ void handleApagaTudo(HTTPRequest *req, HTTPResponse *res)
   digitalWrite(LedLaranja, LOW);
   digitalWrite(LedAmarelo, LOW);
 
-  res->print("OK");
+  String response = getStatusLeds();
+
+  res->println(response);
 }
 
 void handle404(HTTPRequest *req, HTTPResponse *res)
@@ -306,4 +301,26 @@ void AcendeApagaLed(DynamicJsonDocument requestBody)
   default:
     break;
   }
+}
+
+String getStatusLeds()
+{
+  DynamicJsonDocument statusLeds(256);
+
+  bool statusLedVerde = digitalRead(LedVerde);
+  bool statusLedVermelho = digitalRead(LedVermelho);
+  bool statusLedAzul = digitalRead(LedAzul);
+  bool statusLedLaranja = digitalRead(LedLaranja);
+  bool statusLedAmarelo = digitalRead(LedAmarelo);
+
+  statusLeds["verde"] = statusLedVerde;
+  statusLeds["vermelho"] = statusLedVermelho;
+  statusLeds["azul"] = statusLedAzul;
+  statusLeds["laranja"] = statusLedLaranja;
+  statusLeds["amarelo"] = statusLedAmarelo;
+
+  String response;
+  serializeJson(statusLeds, response);
+
+  return response;
 }

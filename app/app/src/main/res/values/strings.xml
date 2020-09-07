@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">AppLedController</string>
+    <string name="led_verde">LED VERDE</string>
+    <string name="acende_todos">Acende Todos</string>
+    <string name="piscar_leds">Piscar Leds</string>
+    <string name="apaga_todos">Apaga Todos</string>
+    <string name="todo">TODO</string>
+    <string name="led_azul">led azul</string>
+    <string name="led_amarelo">led amarelo</string>
+    <string name="led_laranja">led laranja</string>
+
+    <string name="led_vermelho">LED Vermelho</string>
+</resources>
