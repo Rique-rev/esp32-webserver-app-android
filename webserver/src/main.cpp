@@ -21,6 +21,8 @@ HTTPServer server = HTTPServer();
 
 void handleRoot(HTTPRequest *req, HTTPResponse *res);
 void handlePisca(HTTPRequest *req, HTTPResponse *res);
+void handleAcendeTudo(HTTPRequest *req, HTTPResponse *res);
+void handleApagaTudo(HTTPRequest *req, HTTPResponse *res);
 void handle404(HTTPRequest *req, HTTPResponse *res);
 
 void AcendeApagaLed(DynamicJsonDocument requestBody);
@@ -46,7 +48,7 @@ void setup()
   Serial.print("Connected. IP=");
   Serial.println(WiFi.localIP());
 
-  // Definindo o domínio esp32.local
+  // Definindo o domínio esp32cde.local
   // Não funciona com o Postman/Insomnia nem com Chrome/Chromium (Não sei o por que)
   if (!MDNS.begin("esp32cde"))
   {
@@ -63,6 +65,12 @@ void setup()
 
   ResourceNode *nodePisca = new ResourceNode("/pisca", "GET", &handlePisca);
   server.registerNode(nodePisca);
+
+  ResourceNode *nodeAcendeTudo = new ResourceNode("/acendeTudo", "GET", &handleAcendeTudo);
+  server.registerNode(nodeAcendeTudo);
+
+  ResourceNode *nodeApagaTudo = new ResourceNode("/apagaTudo", "GET", &handleApagaTudo);
+  server.registerNode(nodeApagaTudo);
 
   ResourceNode *nodeRootPOST = new ResourceNode("/", "POST", &handleRoot);
   server.registerNode(nodeRootPOST);
@@ -168,6 +176,32 @@ void handlePisca(HTTPRequest *req, HTTPResponse *res)
       count++;
     }
   }
+
+  res->print("OK");
+}
+
+void handleAcendeTudo(HTTPRequest *req, HTTPResponse *res)
+{
+  res->setHeader("Content-Type", "text/plain");
+
+  digitalWrite(LedVerde, HIGH);
+  digitalWrite(LedVermelho, HIGH);
+  digitalWrite(LedAzul, HIGH);
+  digitalWrite(LedLaranja, HIGH);
+  digitalWrite(LedAmarelo, HIGH);
+
+  res->print("OK");
+}
+
+void handleApagaTudo(HTTPRequest *req, HTTPResponse *res)
+{
+  res->setHeader("Content-Type", "text/plain");
+
+  digitalWrite(LedVerde, LOW);
+  digitalWrite(LedVermelho, LOW);
+  digitalWrite(LedAzul, LOW);
+  digitalWrite(LedLaranja, LOW);
+  digitalWrite(LedAmarelo, LOW);
 
   res->print("OK");
 }
