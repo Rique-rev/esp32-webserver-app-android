@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Configuration">
+
+    <EditText
+        android:id="@+id/etxtEsp32IP"
+        style="@android:style/Widget.DeviceDefault.EditText"
+        android:layout_width="280dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="144dp"
+        android:autofillHints=""
+        android:hint="@string/esp32_local_ip"
+        android:inputType="numberSigned|number|phone"
+        android:textAlignment="viewStart"
+        android:textColor="#090808"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btSalvar"
+        android:layout_width="135dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginBottom="257dp"
+        android:text="@string/salvar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etxtEsp32IP"
+        app:layout_constraintVertical_bias="0.848" />
+
+    <Button
+        android:id="@+id/btExibir"
+        android:layout_width="135dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="188dp"
+        android:layout_marginBottom="257dp"
+        android:text="@string/exibir"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etxtEsp32IP"
+        app:layout_constraintVertical_bias="0.848" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

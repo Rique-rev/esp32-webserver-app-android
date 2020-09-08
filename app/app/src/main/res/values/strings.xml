@@ -8,6 +8,8 @@
     <string name="led_azul">led azul</string>
     <string name="led_amarelo">led amarelo</string>
     <string name="led_laranja">led laranja</string>
-
     <string name="led_vermelho">LED Vermelho</string>
+    <string name="esp32_local_ip">ESP32 Local IP</string>
+    <string name="salvar">Salvar</string>
+    <string name="exibir">Exibir</string>
 </resources>

@@ -2,6 +2,8 @@ package com.example.appledcontroller;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
@@ -25,8 +28,12 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
+//    Configuration config = new Configuration();
+//    String url = config.recuperaEsp32IP();
+    String fileName;
+//    String url = "http://192.168.15.34/";
 
-    String url = "http://192.168.15.34/";
+
     String statusLedVerde;
     String statusLedVermelho ;
     String statusLedAzul;
@@ -38,14 +45,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
+
         final Button btLedVerde = findViewById(R.id.btLedVerde);
         final Button btLedVermelho = findViewById(R.id.btLedVermelho);
         final Button btLedAzul = findViewById(R.id.btLedAzul);
         final Button btLedLaranja = findViewById(R.id.btLedLaranja);
         final Button btLedAmarelo = findViewById(R.id.btLedAmarelo);
+
         Button btAcendeTodos = findViewById(R.id.btAcendeTodos);
         Button btApagaTodos = findViewById(R.id.btApagaTodos);
         Button btPiscarLeds = findViewById(R.id.btPiscarLeds);
+
+        ImageButton btConfig = findViewById(R.id.btConfig);
         ImageButton btRefresh = findViewById(R.id.btRefresh);
 
         final TextView txtResponse = findViewById(R.id.txtResponse);
@@ -56,12 +69,18 @@ public class MainActivity extends AppCompatActivity {
         final TextView txtStatusLedLaranja = findViewById(R.id.txtStatusLedLaranja);
         final TextView txtStatusLedAmarelo = findViewById(R.id.txtStatusLedAmarelo);
 
+//        Configuration config = new Configuration();
+//        final String url = config.recuperaEsp32IP();
 
 
         // LED VERDE
         btLedVerde.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                fileName = getApplicationContext().getFilesDir().getPath().toString() + "/esp32_ip.txt";
+                final Configuration config = new Configuration();
+                String url = "http://" + config.recuperaEsp32IP(fileName) + "/";
 
                 OkHttpClient client = new OkHttpClient();
 
@@ -86,6 +105,15 @@ public class MainActivity extends AppCompatActivity {
                 client.newCall(request).enqueue(new Callback() {
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
+
+                        MainActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MainActivity.this, "Erro ao conectar com o servidor\nVerifique o endereço de IP", Toast.LENGTH_LONG).show();
+                            }
+                        });
+
+
                         e.printStackTrace();
                     }
 
@@ -120,6 +148,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                fileName = getApplicationContext().getFilesDir().getPath().toString() + "/esp32_ip.txt";
+                final Configuration config = new Configuration();
+                String url = "http://" + config.recuperaEsp32IP(fileName) + "/";
+
                 OkHttpClient client = new OkHttpClient();
 
                 MediaType JSON = MediaType.parse("application/json;charset=utf-8");
@@ -141,6 +173,13 @@ public class MainActivity extends AppCompatActivity {
                 client.newCall(request).enqueue(new Callback() {
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                        MainActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MainActivity.this, "Erro ao conectar com o servidor\nVerifique o endereço de IP", Toast.LENGTH_LONG).show();
+                            }
+                        });
+
                         e.printStackTrace();
                     }
 
@@ -175,6 +214,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                fileName = getApplicationContext().getFilesDir().getPath().toString() + "/esp32_ip.txt";
+                final Configuration config = new Configuration();
+                String url = "http://" + config.recuperaEsp32IP(fileName) + "/";
+
                 OkHttpClient client = new OkHttpClient();
 
                 MediaType JSON = MediaType.parse("application/json;charset=utf-8");
@@ -196,6 +239,12 @@ public class MainActivity extends AppCompatActivity {
                 client.newCall(request).enqueue(new Callback() {
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                        MainActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MainActivity.this, "Erro ao conectar com o servidor\nVerifique o endereço de IP", Toast.LENGTH_LONG).show();
+                            }
+                        });
                         e.printStackTrace();
                     }
 
@@ -231,6 +280,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                fileName = getApplicationContext().getFilesDir().getPath().toString() + "/esp32_ip.txt";
+                final Configuration config = new Configuration();
+                String url = "http://" + config.recuperaEsp32IP(fileName) + "/";
+
                 OkHttpClient client = new OkHttpClient();
 
                 MediaType JSON = MediaType.parse("application/json;charset=utf-8");
@@ -252,6 +305,12 @@ public class MainActivity extends AppCompatActivity {
                 client.newCall(request).enqueue(new Callback() {
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                        MainActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MainActivity.this, "Erro ao conectar com o servidor\nVerifique o endereço de IP", Toast.LENGTH_LONG).show();
+                            }
+                        });
                         e.printStackTrace();
                     }
 
@@ -286,6 +345,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                fileName = getApplicationContext().getFilesDir().getPath().toString() + "/esp32_ip.txt";
+                final Configuration config = new Configuration();
+                String url = "http://" + config.recuperaEsp32IP(fileName) + "/";
+
                 OkHttpClient client = new OkHttpClient();
 
                 MediaType JSON = MediaType.parse("application/json;charset=utf-8");
@@ -307,6 +370,12 @@ public class MainActivity extends AppCompatActivity {
                 client.newCall(request).enqueue(new Callback() {
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                        MainActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MainActivity.this, "Erro ao conectar com o servidor\nVerifique o endereço de IP", Toast.LENGTH_LONG).show();
+                            }
+                        });
                         e.printStackTrace();
                     }
 
@@ -341,6 +410,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                fileName = getApplicationContext().getFilesDir().getPath().toString() + "/esp32_ip.txt";
+                final Configuration config = new Configuration();
+                String url = "http://" + config.recuperaEsp32IP(fileName) + "/";
+
                 txtResponse.setText("Requesting...");
 
                 OkHttpClient client = new OkHttpClient();
@@ -353,6 +426,12 @@ public class MainActivity extends AppCompatActivity {
                 client.newCall(request).enqueue(new Callback() {
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                        MainActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MainActivity.this, "Erro ao conectar com o servidor\nVerifique o endereço de IP", Toast.LENGTH_LONG).show();
+                            }
+                        });
                         e.printStackTrace();
                     }
 
@@ -385,6 +464,10 @@ public class MainActivity extends AppCompatActivity {
         btApagaTodos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                fileName = getApplicationContext().getFilesDir().getPath().toString() + "/esp32_ip.txt";
+                final Configuration config = new Configuration();
+                String url = "http://" + config.recuperaEsp32IP(fileName) + "/";
+
                 txtResponse.setText("Requesting...");
 
                 OkHttpClient client = new OkHttpClient();
@@ -397,6 +480,12 @@ public class MainActivity extends AppCompatActivity {
                 client.newCall(request).enqueue(new Callback() {
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                        MainActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MainActivity.this, "Erro ao conectar com o servidor\nVerifique o endereço de IP", Toast.LENGTH_LONG).show();
+                            }
+                        });
                         e.printStackTrace();
                     }
 
@@ -430,6 +519,10 @@ public class MainActivity extends AppCompatActivity {
         btPiscarLeds.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                fileName = getApplicationContext().getFilesDir().getPath().toString() + "/esp32_ip.txt";
+                final Configuration config = new Configuration();
+                String url = "http://" + config.recuperaEsp32IP(fileName) + "/";
+
                 txtResponse.setText("Requesting...");
 
                 OkHttpClient client = new OkHttpClient();
@@ -442,6 +535,12 @@ public class MainActivity extends AppCompatActivity {
                 client.newCall(request).enqueue(new Callback() {
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                        MainActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MainActivity.this, "Erro ao conectar com o servidor\nVerifique o endereço de IP", Toast.LENGTH_LONG).show();
+                            }
+                        });
                         e.printStackTrace();
                     }
 
@@ -476,6 +575,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                fileName = getApplicationContext().getFilesDir().getPath().toString() + "/esp32_ip.txt";
+                final Configuration config = new Configuration();
+                String url = "http://" + config.recuperaEsp32IP(fileName) + "/";
+
                 OkHttpClient client = new OkHttpClient();
 
                 Request request = new Request.Builder()
@@ -485,6 +588,12 @@ public class MainActivity extends AppCompatActivity {
                 client.newCall(request).enqueue(new Callback() {
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                        MainActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MainActivity.this, "Erro ao conectar com o servidor\nVerifique o endereço de IP", Toast.LENGTH_LONG).show();
+                            }
+                        });
                         e.printStackTrace();
                     }
 
@@ -520,6 +629,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
 
     private void updateButtonsState(String myResponse, View btLedVerde, View btLedVermelho, View btLedAzul, View btLedLaranja, View btLedAmarelo){
         try {
@@ -570,6 +680,14 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    // Ir para a pagina de Configuração
+    public void irParaConfiguracao(View v) {
+        Intent intent = new Intent(this, Configuration.class);
+        startActivity(intent);
+
+
+    };
 
 
 }
